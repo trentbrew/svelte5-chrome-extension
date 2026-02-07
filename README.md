@@ -245,6 +245,215 @@ export default defineConfig({
 
 ---
 
+## 🔒 Shadow DOM & CSS Isolation
+
+This template includes a complete solution for CSS style isolation using Shadow DOM, addressing the challenges discussed in [sveltejs/svelte#5869](https://github.com/sveltejs/svelte/issues/5869).
+
+### Why Shadow DOM?
+
+When building Chrome extensions that inject UI into web pages (content scripts), you need style isolation to prevent:
+- Host page CSS from breaking your extension UI
+- Your extension CSS from breaking the host page
+- Class name conflicts between your code and the page
+
+### Quick Start
+
+```typescript
+import { createApp } from './lib/utils/createApp';
+import MyComponent from './lib/components/MyComponent.svelte';
+
+// Mount with shadow DOM and automatic CSS injection
+const app = createApp(MyComponent, {
+  target: '#app',
+  useShadowDOM: true,
+  injectStyles: true, // Auto-injects Tailwind, DaisyUI, and Lucide icons
+});
+
+// Cleanup when done
+app.cleanup();
+```
+
+### Key Features
+
+- **Automatic CSS Injection**: All styles (Tailwind, DaisyUI, component styles) are automatically injected into the shadow root
+- **Lucide Icons Support**: Icons render perfectly inside shadow DOM
+- **Modern API**: Uses Constructable Stylesheets for optimal performance
+- **Fallback Support**: Automatically falls back to `<link>` tags for older browsers
+- **Zero Configuration**: Works out of the box with your existing components
+
+### Usage Patterns
+
+#### 1. Content Script Injection
+
+```typescript
+// content.ts - Inject your extension UI into any webpage
+import { createApp } from '../lib/utils/createApp';
+import Widget from '../lib/components/Widget.svelte';
+
+// Create isolated container
+const container = document.createElement('div');
+container.id = 'my-extension-root';
+container.style.cssText = `
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999999;
+`;
+document.body.appendChild(container);
+
+// Mount with complete CSS isolation
+const app = createApp(Widget, {
+  target: container,
+  useShadowDOM: true,
+  injectStyles: true,
+  cssUrls: [
+    chrome.runtime.getURL('assets/main.css'), // Your bundled CSS
+  ],
+});
+```
+
+#### 2. Manual Shadow DOM Control
+
+```typescript
+import { mountInShadow } from './lib/utils/shadowDOM';
+import MyComponent from './lib/components/MyComponent.svelte';
+
+const result = mountInShadow(MyComponent, {
+  target: document.getElementById('app'),
+  mode: 'open',
+  injectStyles: true,
+});
+
+// Access shadow root for advanced use cases
+console.log('Shadow root:', result.shadowRoot);
+result.cleanup();
+```
+
+#### 3. Custom CSS Injection
+
+```typescript
+import { injectCSS, getBundledCSSUrl } from './lib/utils/cssInjector';
+
+const shadowRoot = container.attachShadow({ mode: 'open' });
+
+// Inject CSS with Constructable Stylesheets (fastest)
+await injectCSS({
+  shadowRoot,
+  cssUrls: [getBundledCSSUrl()],
+  adoptedStyleSheets: true,
+});
+```
+
+#### 4. Multiple Isolated Instances
+
+```typescript
+import { createApps, cleanupApps } from './lib/utils/createApp';
+
+const apps = createApps(Widget, [
+  { target: '#widget1', useShadowDOM: true, injectStyles: true },
+  { target: '#widget2', useShadowDOM: true, injectStyles: true },
+  { target: '#widget3', useShadowDOM: true, injectStyles: true },
+]);
+
+// Cleanup all at once
+cleanupApps(apps);
+```
+
+### API Reference
+
+#### `createApp(Component, options)`
+
+Main utility for mounting Svelte components with optional shadow DOM.
+
+**Options:**
+- `target`: HTMLElement or CSS selector
+- `useShadowDOM`: Enable shadow DOM (default: `false`)
+- `shadowMode`: `'open'` or `'closed'` (default: `'open'`)
+- `injectStyles`: Auto-inject CSS (default: `true`)
+- `cssUrls`: Additional CSS files to inject (default: `[]`)
+- `props`: Component props (default: `{}`)
+
+**Returns:** `{ component, shadowRoot?, cleanup }`
+
+#### `mountInShadow(Component, options)`
+
+Lower-level API for manual shadow DOM control.
+
+**Options:**
+- `target`: HTMLElement
+- `mode`: `'open'` or `'closed'` (default: `'open'`)
+- `injectStyles`: Auto-inject CSS (default: `true`)
+- `styleSheets`: CSS URLs to inject (default: `[]`)
+
+**Returns:** `{ shadowRoot, component, cleanup }`
+
+#### `injectCSS(options)`
+
+Inject CSS into a shadow root using Constructable Stylesheets or `<link>` tags.
+
+**Options:**
+- `shadowRoot`: ShadowRoot target
+- `cssUrls`: Array of CSS file URLs
+- `inlineCss`: Inline CSS string
+- `adoptedStyleSheets`: Use Constructable Stylesheets (default: `true`)
+
+**Returns:** `Promise<void>`
+
+### Demo Component
+
+Check out [ShadowDOMDemo.svelte](src/lib/components/ShadowDOMDemo.svelte) for a complete working example that demonstrates:
+- Shadow DOM isolation
+- Lucide icons rendering
+- Interactive components
+- Tailwind utilities
+- DaisyUI themes
+- Svelte 5 reactivity
+
+### Troubleshooting
+
+#### Lucide Icons Not Rendering
+
+**Solution**: Ensure `injectStyles: true` is enabled. The utility automatically injects all necessary CSS including Lucide icon definitions.
+
+```typescript
+const app = createApp(Component, {
+  target: '#app',
+  useShadowDOM: true,
+  injectStyles: true, // ← This is critical
+});
+```
+
+#### Styles Not Applying
+
+**Problem**: CSS not loading in shadow root.
+
+**Solutions**:
+1. Check that your bundled CSS is accessible: `getBundledCSSUrl()`
+2. Verify CORS headers if loading from external sources
+3. Use `cloneDocumentStyles(shadowRoot)` as a fallback
+
+#### Theme Not Working
+
+**Solution**: Wrap your component in a themed container:
+
+```svelte
+<div data-theme="dracula">
+  <!-- Your component content -->
+</div>
+```
+
+### Advanced Examples
+
+See [shadowDOMExample.ts](src/examples/shadowDOMExample.ts) for 7 complete examples including:
+- Basic shadow DOM mounting
+- Manual shadow root creation
+- Content script injection patterns
+- Advanced CSS injection techniques
+- Multiple instance management
+- Real-world production patterns
+
+---
+
 ## 🛡️ Security Notes
 
 - **Minimal Permissions**: Only request permissions that are absolutely necessary.
