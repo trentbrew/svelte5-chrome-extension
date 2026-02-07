@@ -18,7 +18,7 @@ This document provides guidelines and workflows for contributing to this Chrome 
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -92,7 +92,7 @@ npm run format
 
 ---
 
-## 🔀 Pull Request Process
+## Pull Request Process
 
 ### 1. Create a Feature Branch
 
@@ -259,7 +259,7 @@ including API reference and examples.
 
 ---
 
-## 🎨 Coding Standards
+## Coding Standards
 
 ### TypeScript
 
@@ -307,7 +307,7 @@ src/
 
 ---
 
-## 🐛 Issue Reporting
+## Issue Reporting
 
 ### Before Opening an Issue
 
@@ -350,7 +350,7 @@ Any other relevant information
 
 ---
 
-## 🤝 Community Guidelines
+## Community Guidelines
 
 ### Be Respectful
 
@@ -382,7 +382,7 @@ Any other relevant information
 
 ---
 
-## 🎯 Quick Reference
+## Quick Reference
 
 ### First Time Contributing?
 
@@ -419,7 +419,7 @@ When someone opens an issue:
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Svelte 5 Documentation](https://svelte.dev/docs)
 - [Chrome Extension Documentation](https://developer.chrome.com/docs/extensions/)
@@ -428,7 +428,7 @@ When someone opens an issue:
 
 ---
 
-## 📞 Getting Help
+## Getting Help
 
 - Open an issue for bugs or feature requests
 - Tag maintainers with `@username` for urgent matters
@@ -436,10 +436,10 @@ When someone opens an issue:
 
 ---
 
-## 📜 License
+## License
 
 By contributing, you agree that your contributions will be licensed under the [MIT License](LICENSE.md).
 
 ---
 
-Thank you for contributing! 🚀
+Thank you for contributing!

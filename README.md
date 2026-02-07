@@ -4,7 +4,7 @@ A modern Chrome extension starter template powered by **Vite**, **Svelte 5**, **
 
 ---
 
-## ✨ Features
+## Features
 
 - **[Vite](https://vite.dev/)**: Lightning-fast bundler for modern web development.
 - **[Svelte 5](https://svelte.dev/docs/svelte/what-are-runes)**: Minimalistic framework for building user interfaces.
@@ -15,7 +15,7 @@ A modern Chrome extension starter template powered by **Vite**, **Svelte 5**, **
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -76,7 +76,7 @@ Before you begin, ensure you have the following installed:
 
 ---
 
-## 🛠️ Project Structure
+## Project Structure
 
 ```
 .
@@ -99,7 +99,7 @@ Before you begin, ensure you have the following installed:
 
 ---
 
-## 📄 Manifest Configuration
+## Manifest Configuration
 
 The **manifest.json** file is located in the `public/` directory and defines the Chrome extension’s permissions and entry points.
 
@@ -139,7 +139,7 @@ The **manifest.json** file is located in the `public/` directory and defines the
 
 ---
 
-## 🎨 Styling with TailwindCSS and DaisyUI
+## Styling with TailwindCSS and DaisyUI
 
 - **TailwindCSS**: Highly customizable utility classes for rapid UI design.
 - **DaisyUI**: Prebuilt Tailwind components for a polished design.
@@ -175,11 +175,11 @@ module.exports = {
 
 ---
 
-## 🧑‍💻 Development Scripts
+## Development Scripts
 
 - **`npm run dev`**: Start the development server with HMR.
 - **`npm run build`**: Build the extension for production.
-## 📜 Alternative Scripts
+## Alternative Scripts
 
 If you don't have `just` installed, you can use the shell scripts in the `scripts/` directory:
 
@@ -219,7 +219,7 @@ All scripts include:
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 ### Vite Configuration (`vite.config.ts`)
 
@@ -245,7 +245,7 @@ export default defineConfig({
 
 ---
 
-## 🔒 Shadow DOM & CSS Isolation
+## Shadow DOM & CSS Isolation
 
 This template includes a complete solution for CSS style isolation using Shadow DOM, addressing the challenges discussed in [sveltejs/svelte#5869](https://github.com/sveltejs/svelte/issues/5869).
 
@@ -454,7 +454,7 @@ See [shadowDOMExample.ts](src/examples/shadowDOMExample.ts) for 7 complete examp
 
 ---
 
-## 🛡️ Security Notes
+## Security Notes
 
 - **Minimal Permissions**: Only request permissions that are absolutely necessary.
 - **Static Asset Validation**: Ensure all static assets (icons, scripts) are valid and trusted.
@@ -462,7 +462,7 @@ See [shadowDOMExample.ts](src/examples/shadowDOMExample.ts) for 7 complete examp
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Svelte Documentation](https://svelte.dev/docs)
 - [Vite Documentation](https://vitejs.dev/guide/)
@@ -472,13 +472,13 @@ See [shadowDOMExample.ts](src/examples/shadowDOMExample.ts) for 7 complete examp
 
 ---
 
-## 🐛 Reporting Issues
+## Reporting Issues
 
 If you encounter any issues or bugs, please file an issue in the [GitHub repository](https://github.com/your-username/chrome-extension-starter/issues).
 
 ---
 
-## ☕ Support
+## Support
 
 If you find this project helpful, consider buying me a coffee!
 
@@ -488,13 +488,13 @@ If you find this project helpful, consider buying me a coffee!
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the [MIT License](LICENSE.md).
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Trent Brew**
 - Ko-fi: [ko-fi.com/trentbrew](https://ko-fi.com/trentbrew)
